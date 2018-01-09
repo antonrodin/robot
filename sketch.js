@@ -14,25 +14,9 @@ function setup() {
 }
 
 function draw() {
-	background(225);
 
-	//Draw Grass
-    if (frameCount % 10 == 0) {
-        grs.push(new Grass(width));
-    }
-
-    for (var i = grs.length - 1; i >= 0; i--) {
-        grs[i].draw();
-        grs[i].update();
-
-        if (grs[i].offscreen()) {
-            grs.splice(i, 1);
-        }
-    }
-
-	fill(0);
-	stroke(0);
-	line(0, height-30, width, height-30);
+    background(225);
+	draw_scenario();
 
 	//Draw and update enemy
     //Draw Grass
@@ -43,6 +27,7 @@ function draw() {
     for (var i = enems.length - 1; i >= 0; i--) {
         enems[i].draw();
         enems[i].update();
+        enems[i].hit(player);
 
         if (enems[i].offscreen()) {
             enems.splice(i, 1);
@@ -59,4 +44,26 @@ function keyPressed() {
     if (key == " ") {
         player.jump();
     }
+}
+
+function draw_scenario() {
+
+    //Draw Grass
+    if (frameCount % 10 == 0) {
+        grs.push(new Grass(width));
+    }
+
+    for (var i = grs.length - 1; i >= 0; i--) {
+        grs[i].draw();
+        grs[i].update();
+
+        if (grs[i].offscreen()) {
+            grs.splice(i, 1);
+        }
+    }
+
+    fill(0);
+    stroke(0);
+    line(0, height-30, width, height-30);
+
 }
